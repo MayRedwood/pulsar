@@ -1,0 +1,63 @@
+{
+  "pins": {
+    "nilla": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nilla-nix",
+        "repo": "nilla"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "6747fe62879d7d15c96808bc370a52941287772c",
+      "url": "https://github.com/nilla-nix/nilla/archive/6747fe62879d7d15c96808bc370a52941287772c.tar.gz",
+      "hash": "0sg9chk7y8h8sh8647vi0d2liqxa0vnidpd3acs763p6alxnf23y"
+    },
+    "nilla-cli": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nilla-nix",
+        "repo": "cli"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "b3f93f9eafe2d320f633019df1ebbf69a03aa4d6",
+      "url": "https://github.com/nilla-nix/cli/archive/b3f93f9eafe2d320f633019df1ebbf69a03aa4d6.tar.gz",
+      "hash": "00ndbg66hg9wpb1n1wzxnn46ks26vaihyz5smv4z6zki3s56zy4b"
+    },
+    "nix-index-database": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nix-community",
+        "repo": "nix-index-database"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "b3696bfb6c24aa61428839a99e8b40c53ac3a82d",
+      "url": "https://github.com/nix-community/nix-index-database/archive/b3696bfb6c24aa61428839a99e8b40c53ac3a82d.tar.gz",
+      "hash": "14g7lsqkl7afq64jfbb8c5mhwcdbm7s4a1q7fcxpx8wb6hi9l4rd"
+    },
+    "nixpkgs": {
+      "type": "Channel",
+      "name": "nixpkgs-unstable",
+      "url": "https://releases.nixos.org/nixpkgs/nixpkgs-25.05pre777540.88e992074d86/nixexprs.tar.xz",
+      "hash": "066yfab4p0r7mn0qnv908hfac5p5m481lmd6s7vqv026bddgkbkg"
+    },
+    "qbit": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "fsnkty",
+        "repo": "nixpkgs"
+      },
+      "branch": "init-nixos-qbittorrent",
+      "submodules": false,
+      "revision": "4f4706686c921ef202712a00da1c96f0100f6921",
+      "url": "https://github.com/fsnkty/nixpkgs/archive/4f4706686c921ef202712a00da1c96f0100f6921.tar.gz",
+      "hash": "1g9ijwq6xg61dkan5yzix1qx1lspyx5fydxmf2n6nayx61qds41j"
+    }
+  },
+  "version": 5
+}

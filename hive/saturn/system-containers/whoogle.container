@@ -1,0 +1,16 @@
+[Unit]
+Description=Whoogle container
+Wants=network-online.target
+After=network-online.target
+
+[Container]
+Image=docker.io/benbusby/whoogle-search:latest
+ContainerName=whoogle
+AutoUpdate=registry
+# Volume=/root/.local/share/whoogle:/config
+Environment=WHOOGLE_CONFIG_LANGUAGE=lang_en
+Environment=WHOOGLE_CONFIG_SEARCH_LANGUAGE=lang_en
+PublishPort=5000:5000/tcp
+
+[Install]
+WantedBy=default.target
