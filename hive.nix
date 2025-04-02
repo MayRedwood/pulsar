@@ -8,6 +8,7 @@ in
     specialArgs = {
       inherit project;
       inputs = builtins.mapAttrs (_: input: input.result) project.inputs;
+      nillapkgs = builtins.mapAttrs (_: package: package.result) project.packages;
     };
   };
 

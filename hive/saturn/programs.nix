@@ -5,6 +5,7 @@
   # system,
   # project,
   inputs,
+  nillapkgs,
   ...
 }:
 {
@@ -55,7 +56,10 @@
     };
   };
 
-  imports = [ "${inputs.qbit}/nixos/modules/services/torrent/qbittorrent.nix" ];
+  imports = [
+    ./neovim.nix
+    "${inputs.qbit}/nixos/modules/services/torrent/qbittorrent.nix"
+  ];
 
   environment.systemPackages =
     (with pkgs; [
@@ -116,6 +120,7 @@
     ])
     ++ [
       # inputs.ki-editor.packages.${system}.default
+      nillapkgs.apotris.${pkgs.system}
 
       (pkgs.vscode.fhsWithPackages (
         pkgs: with pkgs; [
@@ -124,36 +129,5 @@
           nixd
         ]
       ))
-
-      # (pkgs.neovim.makeFhs {
-      #   extraPython3Packages =
-      #     p: with p; [
-      #       pynvim
-      #       debugpy
-      #       ipython
-      #       ipykernel
-      #       ilua
-      #       numpy
-      #       pandas
-      #       # Molten-nvim requirements
-      #       jupyter-client
-      #       cairosvg # for image rendering
-      #       pnglatex
-      #       plotly
-      #       kaleido
-      #       pyperclip
-      #       nbformat
-      #       pillow
-      #       requests
-      #       websocket-client
-      #     ];
-      #   extraPackages =
-      #     pkgs: with pkgs; [
-      #       icu
-      #       imagemagick
-      #       python3Packages.jupytext
-      #       python3Packages.pylatexenc
-      #     ];
-      # })
     ];
 }

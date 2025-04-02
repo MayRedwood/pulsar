@@ -20,7 +20,7 @@ let
       };
     };
 
-    nixpkgs-unstable = settings.nixpkgs;
+    # nixpkgs-unstable = settings.nixpkgs;
   };
 in
 nilla.create {
@@ -33,5 +33,5 @@ nilla.create {
     }) pins;
   };
 
-  includes = [ ./outputs.nix ];
+  includes = [ ./nilla ];
 }

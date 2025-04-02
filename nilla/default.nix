@@ -23,14 +23,22 @@ in
         };
     };
 
-    packages.fmt = {
-      inherit systems;
+    packages = {
+      fmt = {
+        inherit systems;
 
-      package =
-        { nixfmt-tree, writeScriptBin, ... }:
-        writeScriptBin "format" ''
-          ${nixfmt-tree}/bin/treefmt ~/Documents/nilla-test
-        '';
+        package =
+          { nixfmt-tree, writeScriptBin, ... }:
+          writeScriptBin "format" ''
+            ${nixfmt-tree}/bin/treefmt ~/Documents/nilla-test
+          '';
+      };
+
+      apotris = {
+        inherit systems;
+
+        package = import ./packages/apotris;
+      };
     };
   };
 }
