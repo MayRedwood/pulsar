@@ -1,8 +1,8 @@
 {
   # config,
-  # lib,
-  # system,
+  lib,
   pkgs,
+  project,
   ...
 }:
 {
@@ -41,7 +41,10 @@
       #   pkgs.nix-plugin-pijul.override { nix = config.nix.package; }
       # }/lib/nix/plugins/pijul.so";
     };
+    # nixPath = lib.mkForce [ "nixpkgs=flake:nixpkgs" ];
+    # channel.enable = false;
   };
+  nixpkgs.flake.source = project.inputs.nixpkgs.src;
 
   users.users.moon = {
     isNormalUser = true;
@@ -132,6 +135,7 @@
       nix-inspect
       nix-du
       nix-btm
+      lixPackageSets.latest.nix-eval-jobs
       just
 
       wget

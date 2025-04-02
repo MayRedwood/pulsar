@@ -32,7 +32,7 @@ in
         package =
           { nixfmt-tree, writeScriptBin, ... }:
           writeScriptBin "format" ''
-            ${nixfmt-tree}/bin/treefmt ~/Documents/nilla-test
+            ${nixfmt-tree}/bin/treefmt ~/Documents/pulsar
           '';
       };
 
