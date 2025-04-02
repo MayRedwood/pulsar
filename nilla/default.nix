@@ -1,6 +1,6 @@
 { config, ... }:
 let
-  systems = [ "x86_64-linux" ];
+  systems = config.modules.pulsar.defaultSystems;
   nilla-cli-package = config.inputs.nilla-cli.result.packages.nilla-cli.result.x86_64-linux;
 in
 {
@@ -13,11 +13,13 @@ in
         pkgs.mkShell {
           packages = with pkgs; [
             sl
-            npins
+
             nixd
-            statix
             nixfmt-rfc-style
+            statix
+
             nilla-cli-package
+            npins
             colmena
           ];
         };

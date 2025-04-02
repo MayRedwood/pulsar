@@ -2,7 +2,7 @@ let
   pins = import ./npins;
   nilla = import pins.nilla;
 
-  systems = [ "x86_64-linux" ];
+  systems = [ "x86_64-linux" "aarch64-linux" ];
 
   loaders = {
     qbit = "flake";
@@ -31,6 +31,8 @@ nilla.create {
       loader = loaders.${name} or { };
       settings = settings.${name} or { };
     }) pins;
+
+    modules.pulsar = { defaultSystems = systems; };
   };
 
   includes = [ ./nilla ];

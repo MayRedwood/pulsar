@@ -10,8 +10,6 @@
 let
   cfg = config.programs.nix-index-small;
   nix-index-pkgs = inputs.nix-index-database { inherit pkgs; };
-  # nix-index-pkgs = (inputs.nix-index-database);
-  # nix-index-pkgs = project.modules.nix-index-db-linux;
   nix-locate-bin = pkgs.writeScriptBin "nix-locate-bin" ''
     ${nix-index-pkgs.nix-index-with-small-db}/bin/nix-locate $@
   '';

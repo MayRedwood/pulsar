@@ -2,7 +2,6 @@
   # config,
   # lib,
   # system,
-  inputs,
   pkgs,
   ...
 }:
