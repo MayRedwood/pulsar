@@ -64,7 +64,7 @@
   environment.systemPackages =
     (with pkgs; [
       vim
-      emacs
+      # emacs
       helix
       # nixd
       # nixfmt-rfc-style

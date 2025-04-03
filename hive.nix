@@ -24,6 +24,7 @@ in
       networking.hostName = name;
       deployment = {
         allowLocalDeployment = true;
+        targetHost = null;
       };
 
       imports = [

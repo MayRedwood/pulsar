@@ -5,21 +5,29 @@ up:
     npins update
 
 build:
-    colmena build
+    colmena build --evaluator streaming
 
 apply:
-    colmena apply
+    colmena apply --evaluator streaming
 
 switch:
-    colmena apply-local --sudo
+    colmena apply-local --sudo switch
 
-deploy: build apply switch
+boot:
+    colmena apply-local --sudo boot
 
-pins +ARGS:
-    npins {{ ARGS }}
+local: switch diff
 
-hive *ARGS:
-    colmena {{ ARGS }}
+deploy: build apply boot diff
 
-nilla +ARGS:
-    nilla {{ ARGS }}
+# pins +ARGS:
+#     npins {{ ARGS }}
+# hive *ARGS:
+#     colmena {{ ARGS }}
+# nilla +ARGS:
+#     nilla {{ ARGS }}
+
+diff n="1":
+    #!/usr/bin/env bash
+    readarray -t lines < <( find /nix/var/nix/profiles | tail -n $(({{ n }} + 2)) )
+    nvd diff ${lines[0]} ${lines[{{ n }}]}
