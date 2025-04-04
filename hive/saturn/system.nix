@@ -63,6 +63,8 @@
 
     dbus.implementation = "broker";
 
+    pulseaudio.enable = false;
+
     pipewire = {
       enable = true;
       alsa = {

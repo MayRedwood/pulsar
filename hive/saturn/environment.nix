@@ -141,8 +141,8 @@ in
       nvd
       nix-output-monitor
       nix-tree
-      nix-melt
-      nix-inspect
+      # nix-melt
+      # nix-inspect
       nix-du
       nix-btm
       # lixPackageSets.latest.nix-eval-jobs

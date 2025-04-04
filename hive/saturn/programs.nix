@@ -96,6 +96,7 @@
       btop
       nitch
       killall
+      nushell
       cmatrix
       cbonsai
       pipes-rs
