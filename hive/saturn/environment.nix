@@ -1,13 +1,19 @@
 {
   # config,
-  lib,
+  # lib,
   pkgs,
   project,
+  inputs,
   ...
 }:
+let
+  nilla-cli-package = inputs.nilla-cli.packages.nilla-cli.result.${pkgs.system};
+in
 {
+  imports = [ (import "${inputs.lix-module}/module.nix" { lix = null; }) ];
+
   nix = {
-    package = pkgs.lix;
+    # package = pkgs.lix;
     settings = {
       experimental-features = [
         "nix-command"
@@ -128,6 +134,10 @@
     # pathsToLink = [ "/share/nautilus-python/extensions" ];
 
     systemPackages = with pkgs; [
+      nilla-cli-package
+      npins
+      colmena
+
       nvd
       nix-output-monitor
       nix-tree
@@ -135,7 +145,8 @@
       nix-inspect
       nix-du
       nix-btm
-      lixPackageSets.latest.nix-eval-jobs
+      # lixPackageSets.latest.nix-eval-jobs
+      nix-eval-jobs
       just
 
       wget
@@ -144,6 +155,8 @@
       zip
       unzip
       chafa
+
+      adw-gtk3
     ];
   };
 

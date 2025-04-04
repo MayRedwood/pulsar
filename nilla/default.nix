@@ -1,7 +1,6 @@
 { config, ... }:
 let
   systems = config.modules.pulsar.defaultSystems;
-  nilla-cli-package = config.inputs.nilla-cli.result.packages.nilla-cli.result.x86_64-linux;
 in
 {
   config = {
@@ -17,10 +16,6 @@ in
             nixd
             nixfmt-rfc-style
             statix
-
-            nilla-cli-package
-            npins
-            colmena
           ];
         };
     };

@@ -10,6 +10,7 @@ let
     nilla-cli = "nilla";
     nilla = "nilla";
     nix-index-database = "legacy";
+    lix-module = "raw";
   };
 
   settings = {

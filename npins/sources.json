@@ -1,5 +1,17 @@
 {
   "pins": {
+    "lix-module": {
+      "type": "Git",
+      "repository": {
+        "type": "Git",
+        "url": "https://git.lix.systems/lix-project/nixos-module.git"
+      },
+      "branch": "release-2.91",
+      "submodules": false,
+      "revision": "d94ec4589eb17c81e21b0e5587af7739ecc4147f",
+      "url": null,
+      "hash": "03q01qcaqycl24i8pf2skyk7vg18fmsjzbvq07n67dg4625gj3v2"
+    },
     "nilla": {
       "type": "Git",
       "repository": {
