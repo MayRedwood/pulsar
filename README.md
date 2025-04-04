@@ -25,21 +25,7 @@ regular outputs.
 `hive.nix` then calls `import ./nilla.nix` to get its instance of nixpkgs, as
 well as other inputs.
 
-`hive/` is a directory where each subdirectory is a different host. Currently,
-there is only one, because I am poor.
-
-`modules/` contains NixOS modules that are universally applied to every host.
-Since I currently only have one host, what is and is not made into a module is
-pretty arbitrary, so far.
-
-`npins/` is the default npins directory. `nilla.nix` gets all its inputs
-directly from npins, and imports the `nilla/` directory which contains most
-regular outputs.
-
-`hive.nix` then calls `import ./nilla.nix` to get its instance of nixpkgs, as
-well as other inputs.
-
-`hive/` is a directory where each subdirectory is a different host. Currently,
+`nodes/` is a directory where each subdirectory is a different host. Currently,
 there is only one, because I am poor.
 
 `modules/` contains NixOS modules that are universally applied to every host.

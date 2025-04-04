@@ -28,7 +28,7 @@ in
       };
 
       imports = [
-        ./hive/saturn
+        ./nodes/saturn
       ];
     };
 }
