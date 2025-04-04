@@ -3,51 +3,62 @@
 recipes:
     just --list --unsorted
 
+alias b := build
+alias a := apply
+alias d := deploy
+alias man := manual
+alias ls := list
+alias up := update
+
 [group("colmena")]
 build:
     colmena build --evaluator streaming
 
 [group("colmena")]
-apply:
-    colmena apply --evaluator streaming
+apply TYPE:
+    colmena apply --evaluator streaming {{ TYPE }}
 
 [group("colmena")]
-switch:
-    colmena apply-local --sudo switch
+deploy TYPE:
+    colmena apply-local --sudo  {{ TYPE }}
 
 [group("colmena")]
-boot:
-    colmena apply-local --sudo boot
+local: (deploy "switch") diff
 
 [group("colmena")]
-local: switch diff
+all: build (apply "boot") (deploy "boot") diff
 
-[group("colmena")]
-deploy: build apply boot diff
+[group('info')]
+manual:
+    man configuration.nix
 
-[group("utility")]
-up:
-    npins update
+[group("info")]
+repl:
+    colmena repl
 
-[group("utility")]
+[group('info')]
+list *F:
+    nvd list -r /nix/var/nix/profiles/system {{ F }}
+
+[group("info")]
 diff n="1":
     #!/usr/bin/env bash
     readarray -t lines < <( find /nix/var/nix/profiles | tail -n $(({{ n }} + 2)) )
     nvd diff ${lines[0]} ${lines[{{ n }}]}
 
-[group("utility")]
+[group("info")]
 inputs:
     #!/usr/bin/env nu
     cat ./npins/sources.json | from json | get pins | transpose name info | get name
 
-[group("utility")]
+[group("info")]
 deps:
     #!/usr/bin/env nu
     cat ./npins/sources.json | from json | get pins
 
-[group("utility")]
-repl:
-    colmena repl
+[group("wrapper")]
+update:
+    npins update
 
 [group("wrapper")]
 pins +ARGS:

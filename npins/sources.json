@@ -60,9 +60,9 @@
       },
       "branch": "nixos-unstable",
       "submodules": false,
-      "revision": "77b584d61ff80b4cef9245829a6f1dfad5afdfa3",
-      "url": "https://github.com/nixos/nixpkgs/archive/77b584d61ff80b4cef9245829a6f1dfad5afdfa3.tar.gz",
-      "hash": "06qsbbjv3gmrx6bppzkrcigh7mxwshd6a8wszhll0sn952chyqbf"
+      "revision": "2c8d3f48d33929642c1c12cd243df4cc7d2ce434",
+      "url": "https://github.com/nixos/nixpkgs/archive/2c8d3f48d33929642c1c12cd243df4cc7d2ce434.tar.gz",
+      "hash": "0lbn29dn647kgf3g3nzch8an3m0gn2ysrmq8l7q6lzc8lgwgif8p"
     },
     "qbit": {
       "type": "Git",
@@ -73,9 +73,9 @@
       },
       "branch": "init-nixos-qbittorrent",
       "submodules": false,
-      "revision": "4f4706686c921ef202712a00da1c96f0100f6921",
-      "url": "https://github.com/fsnkty/nixpkgs/archive/4f4706686c921ef202712a00da1c96f0100f6921.tar.gz",
-      "hash": "1g9ijwq6xg61dkan5yzix1qx1lspyx5fydxmf2n6nayx61qds41j"
+      "revision": "5a582c37b3dc1304f2d32a4333bd3f2b345ef9d0",
+      "url": "https://github.com/fsnkty/nixpkgs/archive/5a582c37b3dc1304f2d32a4333bd3f2b345ef9d0.tar.gz",
+      "hash": "0ywfrpzl8lgbv7cyzginxy7xvadhl2qbys0mhvxxzz0k65psj31h"
     }
   },
   "version": 5
