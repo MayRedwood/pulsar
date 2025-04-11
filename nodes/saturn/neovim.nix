@@ -2,6 +2,18 @@
 {
   nixpkgs.overlays = [
     (final: prev: {
+      sm64coopdx = prev.sm64coopdx.overrideAttrs (
+        finalAttrs: previousAttrs: {
+          src = final.fetchFromGitHub {
+            owner = "coop-deluxe";
+            repo = "sm64coopdx";
+            rev = "v1.3";
+            hash = "sha256-ssbvNnBBxahzJRIX5Vhze+Nfh3ADoy+NrUIF2RZHye8=";
+          };
+          buildInputs = previousAttrs.buildInputs ++ [ final.libGL ];
+        }
+      );
+
       neovim = prev.neovim.overrideAttrs (
         finalAttrs: previousAttrs: {
           passthru = previousAttrs.passthru // {
