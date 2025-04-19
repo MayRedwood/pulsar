@@ -102,11 +102,6 @@ in
       enable = true;
       extraBins = true;
     };
-
-    nh = {
-      enable = true;
-      flake = "/home/moon/Documents/flake";
-    };
   };
 
   virtualisation.podman.enable = true;
@@ -115,8 +110,6 @@ in
     etc."containers/systemd/whoogle.container".source = ./system-containers/whoogle.container;
 
     sessionVariables = {
-      # NOTE: SYSTEM CONFIG PATH. Please refer to this when needed.
-      # FLAKE = "/home/moon/Documents/flake";
       # NAUTILUS_4_EXTENSION_DIR = lib.mkForce "${pkgs.nautilus-python}/lib/nautilus/extensions-4";
     };
     variables = {
