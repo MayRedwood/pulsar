@@ -35,6 +35,8 @@ let
 
     inherit src version;
 
+    patches = [ ./apotris.patch ];
+
     postPatch = ''
       patchShebangs tools/bin2s.py
     '';

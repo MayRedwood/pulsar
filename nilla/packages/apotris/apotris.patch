@@ -1,0 +1,13 @@
+diff --git a/include/blockEngine.hpp b/include/blockEngine.hpp
+index 839c507..e79b7b9 100644
+--- a/include/blockEngine.hpp
++++ b/include/blockEngine.hpp
+@@ -569,7 +569,7 @@ namespace BlockEngine
+ 
+         bool zoneExit = false;
+ 
+-        bool sonicDrop = false;
++        bool sonicDrop = true;
+ 
+         List bag;
+         List historyList;

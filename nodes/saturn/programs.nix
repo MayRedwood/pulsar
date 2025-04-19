@@ -49,7 +49,14 @@
     qbittorrent = {
       enable = true;
       package = inputs.qbit.legacyPackages.${pkgs.system}.qbittorrent-nox;
-      # serverConfig.LegalNotice.Accepted = true;
+      serverConfig = {
+        LegalNotice.Accepted = true;
+        Preferences.WebUI = {
+          AlternativeUIEnabled = true;
+          RootFolder = "${pkgs.vuetorrent}/share/vuetorrent";
+          LocalHostAuth = false;
+        };
+      };
       openFirewall = true;
       webuiPort = 8080;
       torrentingPort = 14104;
@@ -121,7 +128,7 @@
     ])
     ++ [
       # inputs.ki-editor.packages.${system}.default
-      nillapkgs.apotris.${pkgs.system}
+      # nillapkgs.apotris.${pkgs.system}
 
       (pkgs.vscode.fhsWithPackages (
         pkgs: with pkgs; [
@@ -130,5 +137,42 @@
           nixd
         ]
       ))
+
+      (
+        let
+          base = pkgs.appimageTools.defaultFhsEnvArgs;
+        in
+        pkgs.buildFHSEnv (
+          base
+          // {
+            name = "defhs";
+            targetPkgs =
+              pkgs:
+              (base.targetPkgs pkgs)
+              ++ (with pkgs; [
+                pkg-config
+                cmake
+                libtool
+                ncurses
+                pkg-config
+                zlib
+                gcc
+                gnumake
+                curl
+                openssl
+
+                (poetry.withPlugins (
+                  ps: with ps; [
+                    poetry-plugin-shell
+                  ]
+                ))
+                # poetryPlugins.poetry-plugin-shell
+              ]);
+            profile = "export FHS=1";
+            runScript = "fish";
+            extraOutputsToInstall = [ "dev" ];
+          }
+        )
+      )
     ];
 }
