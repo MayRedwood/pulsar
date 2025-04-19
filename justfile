@@ -8,7 +8,9 @@ alias a := apply
 alias d := deploy
 alias man := manual
 alias ls := list
+alias in := inputs
 alias up := update
+alias r := run
 
 [group("colmena")]
 build:
@@ -20,10 +22,10 @@ apply TYPE:
 
 [group("colmena")]
 deploy TYPE:
-    colmena apply-local --sudo  {{ TYPE }}
+    colmena apply-local --sudo {{ TYPE }}
 
 [group("colmena")]
-local: (deploy "switch") diff
+switch: (deploy "switch") diff
 
 [group("colmena")]
 all: build (apply "boot") (deploy "boot") diff
@@ -61,7 +63,7 @@ update:
     npins update
 
 [group("wrapper")]
-pins +ARGS:
+pins *ARGS:
     npins {{ ARGS }}
 
 [group("wrapper")]
@@ -71,3 +73,7 @@ col *ARGS:
 [group("wrapper")]
 out +ARGS:
     nilla {{ ARGS }}
+
+[group("wrapper")]
+run +BIN:
+    {{ BIN }}
