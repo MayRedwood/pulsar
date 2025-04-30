@@ -10,9 +10,12 @@
     ./acer-wmi-battery
   ];
 
-  boot.loader = {
-    systemd-boot.enable = true;
-    efi.canTouchEfiVariables = true;
+  boot = {
+    # kernelPackages = pkgs.linuxPackages_zen;
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
   };
 
   networking = {
@@ -20,11 +23,17 @@
 
     # pihole-doh.enable = true;
 
+    # nameservers = [
+    #   "127.0.0.1"
+    #   "::1"
+    # ];
+
     nftables.enable = true;
 
     networkmanager = {
       enable = true;
       # wifi.backend = "iwd";
+      # dns = "none";
     };
   };
 
@@ -59,11 +68,39 @@
   };
 
   services = {
+    adguardhome = {
+      enable = true;
+      mutableSettings = true;
+      allowDHCP = true;
+      host = "127.0.0.1";
+      openFirewall = true;
+
+      settings = {
+        dns = {
+          upstream_dns = [
+            "https://dns10.quad9.net/dns-query"
+            "https://wikimedia-dns.org/dns-query"
+            "https://dns.nextdns.io"
+            "https://dns.mullvad.net/dns-query"
+            "https://dns.google/dns-query"
+            "https://zero.dns0.eu/"
+            "https://dns.us.futuredns.eu.org/dns-query"
+            "https://dns.cloudflare.com/dns-query"
+            "https://doh.sandbox.opendns.com/dns-query"
+            "https://dns.bebasid.com/unfiltered"
+            "https://unfiltered.adguard-dns.com/dns-query"
+          ];
+        };
+      };
+    };
+
     xserver.videoDrivers = [ "nvidia" ];
 
     dbus.implementation = "broker";
 
     pulseaudio.enable = false;
+
+    # power-profiles-daemon.enable = true;
 
     pipewire = {
       enable = true;
@@ -72,6 +109,35 @@
         support32Bit = true;
       };
       pulse.enable = true;
+      # extraConfig = {
+      #   pipewire."92-low-latency" = {
+      #     "context.properties" = {
+      #       "default.clock.rate" = 48000;
+      #       "default.clock.quantum" = 2048;
+      #       "default.clock.min-quantum" = 2048;
+      #       "default.clock.max-quantum" = 2048;
+      #     };
+      #   };
+      #   pipewire-pulse."92-low-latency" = {
+      #     "context.properties" = [
+      #       {
+      #         name = "libpipewire-module-protocol-pulse";
+      #         args = { };
+      #       }
+      #     ];
+      #     "pulse.properties" = {
+      #       "pulse.min.req" = "2048/48000";
+      #       "pulse.default.req" = "2048/48000";
+      #       "pulse.max.req" = "2048/48000";
+      #       "pulse.min.quantum" = "2048/48000";
+      #       "pulse.max.quantum" = "2048/48000";
+      #     };
+      #     "stream.properties" = {
+      #       "node.latency" = "2048/48000";
+      #       "resample.quality" = 1;
+      #     };
+      #   };
+      # };
       wireplumber.configPackages = [
         (pkgs.writeTextDir "share/wireplumber/wireplumber.conf.d/alsa.conf" ''
           monitor.alsa.rules = [
