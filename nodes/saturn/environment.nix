@@ -94,6 +94,14 @@ in
     desktopManager.plasma6.enable = true;
 
     flatpak.enable = true;
+
+    whoogle-search = {
+      enable = true;
+      extraEnv = {
+        WHOOGLE_CONFIG_LANGUAGE = "lang_en";
+        WHOOGLE_CONFIG_SEARCH_LANGUAGE = "lang_en";
+      };
+    };
   };
 
   programs = {
@@ -107,7 +115,8 @@ in
   virtualisation.podman.enable = true;
 
   environment = {
-    etc."containers/systemd/whoogle.container".source = ./system-containers/whoogle.container;
+    # etc."containers/systemd/whoogle.container".source = ./system-containers/whoogle.container;
+    # etc."containers/systemd/pihole.container".source = ./system-containers/pihole.container;
 
     sessionVariables = {
       # NAUTILUS_4_EXTENSION_DIR = lib.mkForce "${pkgs.nautilus-python}/lib/nautilus/extensions-4";

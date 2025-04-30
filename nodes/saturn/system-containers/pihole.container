@@ -1,0 +1,31 @@
+[Unit]
+Description=Pihole container
+Wants=network-online.target
+After=network-online.target
+
+[Container]
+Image=docker.io/jacklul/pihole:latest
+ContainerName=pihole
+AutoUpdate=registry
+# Volumes
+Volume=/root/.local/share/pihole:/etc/pihole
+Volume=/root/.local/share/dnsmasq:/etc/dnsmasq.d
+Volume=/root/.local/share/pihole-updatelists:/etc/pihole-updatelists
+# Environment variables
+Environment=BLOCKLISTS_URL=https://v.firebog.net/hosts/lists.php?type=nocross
+Environment=REGEX_BLACKLIST_URL=https://raw.githubusercontent.com/mmotti/pihole-regex/master/regex.list
+Environment=TZ=America/Sao_Paulo
+Environment=FTLCONF_webserver_api_password=nixospihole
+Environment=WHITELIST_URL=https://raw.githubusercontent.com/anudeepND/whitelist/master/domains/whitelist.txt
+# Environment=FTLCONF_dns_upstreams=10.125.128.1
+# Ports
+PublishPort=53:53/tcp
+PublishPort=53:53/udp
+PublishPort=67:67/udp
+PublishPort=80:80/tcp
+PublishPort=443:443/tcp
+# AddHost=host.containers.internal:host-gateway
+# Network=host
+
+[Install]
+WantedBy=default.target
