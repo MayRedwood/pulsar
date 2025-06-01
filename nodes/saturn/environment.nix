@@ -62,6 +62,7 @@ in
       "keyd"
       "transmission"
       "qbittorrent"
+      "pipewire"
     ];
     shell = pkgs.bash;
     packages = with pkgs; [
@@ -117,6 +118,13 @@ in
   environment = {
     # etc."containers/systemd/whoogle.container".source = ./system-containers/whoogle.container;
     # etc."containers/systemd/pihole.container".source = ./system-containers/pihole.container;
+
+    etc."security/limits.d/95-pipewire.conf".text = ''
+      # Default limits for users of pipewire
+      @pipewire - rtprio 95
+      @pipewire - nice -19
+      @pipewire - memlock 4194304
+    '';
 
     sessionVariables = {
       # NAUTILUS_4_EXTENSION_DIR = lib.mkForce "${pkgs.nautilus-python}/lib/nautilus/extensions-4";
