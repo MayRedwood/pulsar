@@ -19,6 +19,7 @@
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
+    supportedFilesystems = [ "ntfs" ];
   };
 
   networking = {
@@ -35,7 +36,7 @@
 
     networkmanager = {
       enable = true;
-      # wifi.backend = "iwd";
+      wifi.backend = "iwd";
       # dns = "none";
     };
   };
@@ -56,6 +57,8 @@
 
     nvidia = {
       open = true;
+
+      powerManagement.enable = true;
 
       prime = {
         offload = {
@@ -86,11 +89,11 @@
             "https://dns.nextdns.io"
             "https://dns.mullvad.net/dns-query"
             "https://dns.google/dns-query"
-            "https://zero.dns0.eu/"
+            # "https://zero.dns0.eu/"
             "https://dns.us.futuredns.eu.org/dns-query"
             "https://dns.cloudflare.com/dns-query"
             "https://doh.sandbox.opendns.com/dns-query"
-            "https://dns.bebasid.com/unfiltered"
+            # "https://dns.bebasid.com/unfiltered"
             "https://unfiltered.adguard-dns.com/dns-query"
           ];
         };
