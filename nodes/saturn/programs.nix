@@ -66,6 +66,7 @@
   imports = [
     ./neovim.nix
     ./media.nix
+    ./glance.nix
     "${inputs.qbit}/nixos/modules/services/torrent/qbittorrent.nix"
   ];
 
