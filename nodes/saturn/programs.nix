@@ -1,11 +1,11 @@
 {
   # config,
-  # lib,
+  lib,
   pkgs,
   # system,
   # project,
   inputs,
-  nillapkgs,
+  # nillapkgs,
   ...
 }:
 {
@@ -65,6 +65,7 @@
 
   imports = [
     ./neovim.nix
+    ./media.nix
     "${inputs.qbit}/nixos/modules/services/torrent/qbittorrent.nix"
   ];
 
