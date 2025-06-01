@@ -130,7 +130,7 @@ in
       # NAUTILUS_4_EXTENSION_DIR = lib.mkForce "${pkgs.nautilus-python}/lib/nautilus/extensions-4";
     };
     variables = {
-      EDITOR = "nvim";
+      EDITOR = "hx";
       NIXOS_OZONE_WL = "1";
       # PIX_DEFSHELL = "fish";
       # man colors
