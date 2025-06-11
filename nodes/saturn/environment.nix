@@ -144,6 +144,23 @@ in
     # pathsToLink = [ "/share/nautilus-python/extensions" ];
 
     systemPackages = with pkgs; [
+      (writeShellApplication {
+        name = "nia";
+
+        runtimeInputs = [
+          just
+          bash
+          nushell
+          colmena
+          nvd
+          npins
+          nilla-cli-package
+        ];
+
+        text = ''
+          just --justfile /home/moon/Documents/pulsar/justfile "$@"
+        '';
+      })
       nilla-cli-package
       npins
       colmena

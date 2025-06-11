@@ -31,3 +31,9 @@ there is only one, because I am poor.
 `modules/` contains NixOS modules that are universally applied to every host.
 Since I currently only have one host, what is and is not made into a module is
 pretty arbitrary, so far.
+
+## Nia
+
+There is a `justfile` containing some common commands I use for maintaining this
+repository. My system configuration defines a `nia` command that wraps over said
+Justfile.

@@ -1,7 +1,18 @@
 #!/usr/bin/env -S just --justfile
 
-recipes:
-    just --list --unsorted
+help:
+    #!/usr/bin/env bash
+    CYAN="36"
+    STYLE="\e[1;${CYAN}m"
+    BOLD="\e[1m"
+    RESET="\e[0m"
+
+    echo -e "--- ${STYLE}nia${RESET} ---
+    A collection of helpful NixOS scripts
+    
+    ${BOLD}Commands:${RESET}"
+
+    just --list --unsorted --list-heading ''
 
 alias b := build
 alias a := apply
@@ -10,7 +21,6 @@ alias man := manual
 alias ls := list
 alias in := inputs
 alias up := update
-alias r := run
 
 [group("colmena")]
 build:
@@ -29,6 +39,26 @@ switch: (deploy "switch") diff
 
 [group("colmena")]
 all: build (apply "boot") (deploy "boot") diff
+
+[group("helper")]
+update:
+    npins update
+
+[group("helper")]
+pins *ARGS:
+    npins {{ ARGS }}
+
+[group("helper")]
+col *ARGS:
+    colmena {{ ARGS }}
+
+[group("helper")]
+out +ARGS:
+    nilla {{ ARGS }}
+
+[group("helper")]
+git:
+    lazygit
 
 [group('info')]
 manual:
@@ -57,23 +87,3 @@ inputs:
 deps:
     #!/usr/bin/env nu
     cat ./npins/sources.json | from json | get pins
-
-[group("wrapper")]
-update:
-    npins update
-
-[group("wrapper")]
-pins *ARGS:
-    npins {{ ARGS }}
-
-[group("wrapper")]
-col *ARGS:
-    colmena {{ ARGS }}
-
-[group("wrapper")]
-out +ARGS:
-    nilla {{ ARGS }}
-
-[group("wrapper")]
-run +BIN:
-    {{ BIN }}
