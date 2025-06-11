@@ -72,6 +72,7 @@
 
   environment.systemPackages =
     (with pkgs; [
+      isd
       vim
       # emacs
       helix
@@ -106,11 +107,13 @@
       nitch
       killall
       nushell
+      zk
+      bagels
+
       cmatrix
       cbonsai
       pipes-rs
-      zk
-
+      astroterm
       fortune
       cowsay
       blahaj
@@ -140,6 +143,11 @@
         ]
       ))
 
+      (pkgs.writers.writeHaskellBin "missiles" { libraries = [ pkgs.haskellPackages.acme-missiles ]; } ''
+        import Acme.Missiles
+        main = launchMissiles
+      '')
+
       (
         let
           base = pkgs.appimageTools.defaultFhsEnvArgs;
@@ -163,12 +171,13 @@
                 curl
                 openssl
 
+                python3
                 (poetry.withPlugins (
                   ps: with ps; [
                     poetry-plugin-shell
                   ]
                 ))
-                # poetryPlugins.poetry-plugin-shell
+                uv
               ]);
             profile = "export FHS=1";
             runScript = "fish";
