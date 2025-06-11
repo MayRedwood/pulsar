@@ -55,7 +55,7 @@ in
   users.users.moon = {
     isNormalUser = true;
     uid = 1000;
-    description = "May Munds";
+    description = "Munds";
     extraGroups = [
       "networkmanager"
       "wheel"
@@ -184,6 +184,9 @@ in
       chafa
 
       adw-gtk3
+      adwaita-icon-theme
+      adwaita-icon-theme-legacy
+      adwaita-fonts
     ];
   };
 
