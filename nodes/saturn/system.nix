@@ -10,7 +10,7 @@
     ./acer-wmi-battery
   ];
 
-  virtualisation.libvirtd.enable = true;
+  # virtualisation.libvirtd.enable = true;
   # programs.virt-manager.enable = true;
 
   boot = {
@@ -242,7 +242,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    gnome-boxes
+    # gnome-boxes
     dualsensectl
   ];
 
