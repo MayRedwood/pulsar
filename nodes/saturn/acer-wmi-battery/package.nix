@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     repo = pname;
     rev = "main";
     # hash = "0";
-    hash = "sha256-pzvw4ZBVP9jzSgRz5zmNKzibyy5TRlsoYcyIHXl8VhE=";
+    hash = "sha256-mI6Ob9BmNfwqT3nndWf3jkz8f7tV10odkTnfApsNo+A=";
   };
 
   patches = [ ./acer.patch ];
