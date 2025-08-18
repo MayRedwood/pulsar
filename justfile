@@ -17,6 +17,7 @@ help:
 alias b := build
 alias a := apply
 alias d := deploy
+alias pb := prettybuild
 alias up := update
 alias man := manual
 alias ls := list
@@ -39,6 +40,16 @@ switch: (deploy "switch") diff
 
 [group("colmena")]
 all: build (apply "boot") (deploy "boot") diff
+
+[group("nom")]
+prettybuild:
+    nom build --file build.nix --no-link
+
+[group("nom")]
+pretty: prettybuild switch
+
+[group("nom")]
+syu: update prettybuild (deploy "boot") diff
 
 [group("helper")]
 update:

@@ -1,10 +1,10 @@
 {
   # config,
-  lib,
+  # lib,
   pkgs,
   # system,
   # project,
-  inputs,
+  # inputs,
   nillapkgs,
   ...
 }:
@@ -83,8 +83,6 @@
       vim
       # emacs
       helix
-      kdePackages.qtdeclarative
-      quickshell
       # nixd
       # nixfmt-rfc-style
       # statix
@@ -146,11 +144,6 @@
         import Acme.Missiles
         main = launchMissiles
       '')
-
-      (writers.writeBashBin "gnome-polkit" { } ''
-        ${polkit_gnome}/libexec/polkit-gnome-authentication-agent-1
-      '')
-      polkit_gnome
     ])
     ++ [
       # inputs.ki-editor.packages.${system}.default
