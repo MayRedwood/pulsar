@@ -46,9 +46,46 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   console = lib.mkDefault {
-    font = "Lat2-Terminus16";
-    keyMap = "br-abnt2";
+    earlySetup = true;
+    font = "latarcyrheb-sun16";
+    # packages = with pkgs; [ terminus_font ];
     useXkbConfig = true;
+    colors = [
+      # "1e1e2e" # base
+      # "f38ba8" # red
+      # "a6e3a1" # green
+      # "f9e2af" # yellow
+      # "89b4fa" # blue
+      # "f5c2e7" # pink
+      # "94e2d5" # teal
+      # "bac2de" # subtext1
+
+      # "585b70" # surface2
+      # "f38ba8" # red
+      # "a6e3a1" # green
+      # "f9e2af" # yellow
+      # "89b4fa" # blue
+      # "f5c2e7" # pink
+      # "94e2d5" # teal
+      # "a6adc8" # subtext0
+      "000000" # base
+      "ff0030" # red
+      "30ff00" # green
+      "ffd000" # yellow
+      "0030ff" # blue
+      "d000ff" # pink
+      "00ffd0" # teal
+      "ffffff" # subtext1
+
+      "000000" # base
+      "ff0030" # red
+      "30ff00" # green
+      "ffd000" # yellow
+      "0030ff" # blue
+      "d000ff" # pink
+      "00ffd0" # teal
+      "ffffff" # subtext1
+    ];
   };
 
   hardware = {
