@@ -1,6 +1,15 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
+let
+  # ignisGvcPackage = inputs.ignis.inputs.ignis-gvc.packages.${pkgs.system}.ignis-gvc;
+  # version = "0.5-git";
+  # ignis-gvc = pkgs.callPackage "${inputs.ignis-gvc}/nix" { };
+  # ignis = pkgs.callPackage "${inputs.ignis}/nix" {
+  #   inherit version ignis-gvc;
+  # };
+in
 {
   nixpkgs.overlays = [
+    # inputs.ignis.overlays.default
     (final: prev: {
       # sm64coopdx = prev.sm64coopdx.overrideAttrs (
       #   finalAttrs: previousAttrs: {
@@ -87,6 +96,11 @@
   ];
 
   environment.systemPackages = [
+    (inputs.ignis.packages.${pkgs.system}.ignis.override {
+      enableAudioService = true;
+      useGrassSass = true;
+    })
+    # ignis
     (pkgs.neovim.makeFhs {
       extraPython3Packages =
         p: with p; [
@@ -115,6 +129,7 @@
           imagemagick
           python3Packages.jupytext
           python3Packages.pylatexenc
+          uv
         ];
     })
   ];
