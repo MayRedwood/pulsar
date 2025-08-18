@@ -9,7 +9,7 @@ help:
 
     echo -e "--- ${STYLE}nia${RESET} ---
     A collection of helpful NixOS scripts
-    
+
     ${BOLD}Commands:${RESET}"
 
     just --list --unsorted --list-heading ''
@@ -17,10 +17,10 @@ help:
 alias b := build
 alias a := apply
 alias d := deploy
+alias up := update
 alias man := manual
 alias ls := list
 alias in := inputs
-alias up := update
 
 [group("colmena")]
 build:
@@ -45,11 +45,11 @@ update:
     npins update
 
 [group("helper")]
-pins *ARGS:
+pins +ARGS:
     npins {{ ARGS }}
 
 [group("helper")]
-col *ARGS:
+col +ARGS:
     colmena {{ ARGS }}
 
 [group("helper")]
@@ -59,6 +59,10 @@ out +ARGS:
 [group("helper")]
 git:
     lazygit
+
+[group("helper")]
+edit:
+    $EDITOR .
 
 [group('info')]
 manual:

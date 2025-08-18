@@ -112,6 +112,7 @@ let
         inherit name;
         # hash = hash;
         inherit url submodules;
+        allRefs = true;
       };
 
   mkPyPiSource =

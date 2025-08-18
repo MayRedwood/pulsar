@@ -2,39 +2,48 @@ let
   pins = import ./npins;
   nilla = import pins.nilla;
 
-  systems = [ "x86_64-linux" "aarch64-linux" ];
+  # systems = [
+  #   "x86_64-linux"
+  #   "aarch64-linux"
+  # ];
 
-  loaders = {
-    qbit = "flake";
-    nixpkgs = "nixpkgs";
-    nilla-cli = "nilla";
-    nilla = "nilla";
-    nix-index-database = "legacy";
-    lix-module = "raw";
-  };
+  # loaders = {
+  #   nixpkgs = "nixpkgs";
+  #   nilla-cli = "nilla";
+  #   nilla = "nilla";
+  #   nix-index-database = "legacy";
+  #   lix-module = "raw";
+  #   ignis = "flake";
+  #   flake-compat = "legacy";
+  # };
 
-  settings = {
-    nixpkgs = {
-      inherit systems;
-      configuration = {
-        allowUnfree = true;
-      };
-    };
+  # settings = {
+  #   nixpkgs = {
+  #     inherit systems;
+  #     configuration = {
+  #       allowUnfree = true;
+  #       # allowBroken = true;
+  #     };
+  #   };
 
-    # nixpkgs-unstable = settings.nixpkgs;
-  };
+  #   ignis = {};
+
+  #   # nixpkgs-unstable = settings.nixpkgs;
+  # };
 in
 nilla.create {
-  config = {
-    inputs = builtins.mapAttrs (name: pin: {
-      src = pin;
+  # config = {
+  #   inputs = builtins.mapAttrs (name: pin: {
+  #     src = pin;
 
-      loader = loaders.${name} or { };
-      settings = settings.${name} or { };
-    }) pins;
+  #     loader = loaders.${name} or { };
+  #     settings = settings.${name} or { };
+  #   }) pins;
 
-    modules.pulsar = { defaultSystems = systems; };
-  };
+  #   modules.pulsar = {
+  #     defaultSystems = systems;
+  #   };
+  # };
 
   includes = [ ./nilla ];
 }
