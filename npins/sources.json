@@ -29,18 +29,6 @@
       "url": "https://github.com/ignis-sh/ignis/archive/f5ee2f101364b3131e7d3236d3a903ea9593a342.tar.gz",
       "hash": "0wc10skssc28fgjlcl3c1v0k4dkgf7hpmk6cmsyp8q7syz04p4dc"
     },
-    "lix-module": {
-      "type": "Git",
-      "repository": {
-        "type": "Git",
-        "url": "https://git.lix.systems/lix-project/nixos-module.git"
-      },
-      "branch": "release-2.91",
-      "submodules": false,
-      "revision": "0a2963794d193d9b96ae979e811914f1c629c921",
-      "url": null,
-      "hash": "042pn53w6kc40qv11i19j97njfcxnrvwla99qc960dlq7bvqxlyh"
-    },
     "nilla": {
       "type": "Git",
       "repository": {
