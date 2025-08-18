@@ -10,12 +10,10 @@
 let
   cfg = config.programs.nix-index-small;
   nix-index-pkgs = inputs.nix-index-database { inherit pkgs; };
-  nix-locate-bin = pkgs.writeScriptBin "nix-locate-bin" ''
+  nix-locate-bin = pkgs.writeShellScriptBin "nix-locate-bin" ''
     ${nix-index-pkgs.nix-index-with-small-db}/bin/nix-locate $@
   '';
-  bash-handler = pkgs.writeScript "command-not-found" ''
-    #!/bin/sh
-
+  bash-handler = pkgs.writeShellScript "command-not-found" ''
     # for bash 4
     # this will be called when a command is entered
     # but not found in the user’s path + environment
@@ -30,7 +28,7 @@ let
 
       toplevel=nixpkgs # nixpkgs should always be available even in NixOS
       cmd=$1
-      attrs=$(${nix-index-pkgs.nix-index-with-small-db}/bin/nix-locate --minimal --no-group --type x --type s --top-level --whole-name --at-root "/bin/$cmd")
+      attrs=$(${nix-index-pkgs.nix-index-with-small-db}/bin/nix-locate --minimal --no-group --type x --type s --at-root --whole-name "/bin/$cmd")
 
       case $attrs in
         "")
@@ -54,8 +52,7 @@ let
       return 127 # command not found should always exit with 127
     }
   '';
-  fish-wrapper = pkgs.writeScript "command-not-found" ''
-    #!${pkgs.bash}/bin/bash
+  fish-wrapper = pkgs.writeShellScript "command-not-found" ''
     source ${bash-handler}
     command_not_found_handle "$@"
   '';
@@ -108,11 +105,13 @@ in
       ];
 
     programs = {
-      fish.interactiveShellInit = lib.mkIf cfg.enableFishIntegration ''
-        function __fish_command_not_found_handler --on-event fish_command_not_found
-          ${fish-wrapper} $argv
-        end
-      '';
+      fish.interactiveShellInit =
+        lib.mkIf cfg.enableFishIntegration # fish
+          ''
+            function __fish_command_not_found_handler --on-event fish_command_not_found
+              ${fish-wrapper} $argv
+            end
+          '';
     };
 
     environment.systemPackages = lib.mkIf cfg.extraBins (
