@@ -5,7 +5,7 @@
   # system,
   # project,
   inputs,
-  # nillapkgs,
+  nillapkgs,
   ...
 }:
 {
@@ -15,13 +15,22 @@
 
     starship.enable = true;
     git.enable = true;
-    direnv.enable = true;
+    direnv = {
+      enable = true;
+      nix-direnv = {
+        enable = true;
+        package = pkgs.lixPackageSets.latest.nix-direnv;
+      };
+    };
 
     steam = {
       enable = true;
       remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
       dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
       gamescopeSession.enable = true;
+      extraCompatPackages = with pkgs; [
+        proton-ge-bin
+      ];
     };
     gamemode.enable = true;
   };
@@ -48,7 +57,6 @@
     # };
     qbittorrent = {
       enable = true;
-      package = inputs.qbit.legacyPackages.${pkgs.system}.qbittorrent-nox;
       serverConfig = {
         LegalNotice.Accepted = true;
         Preferences.WebUI = {
@@ -67,15 +75,16 @@
     ./neovim.nix
     ./media.nix
     ./glance.nix
-    "${inputs.qbit}/nixos/modules/services/torrent/qbittorrent.nix"
   ];
 
   environment.systemPackages =
     (with pkgs; [
-      isd
+      # isd
       vim
       # emacs
       helix
+      kdePackages.qtdeclarative
+      quickshell
       # nixd
       # nixfmt-rfc-style
       # statix
@@ -108,7 +117,7 @@
       killall
       nushell
       zk
-      bagels
+      # bagels
 
       cmatrix
       cbonsai
@@ -118,6 +127,8 @@
       cowsay
       blahaj
       gay
+      libqalculate
+      sage
 
       mpc-cli
       rmpc
@@ -130,10 +141,20 @@
       sm64coopdx
       ringracers
       # nova.apotris
+
+      (writers.writeHaskellBin "missiles" { libraries = [ haskellPackages.acme-missiles ]; } ''
+        import Acme.Missiles
+        main = launchMissiles
+      '')
+
+      (writers.writeBashBin "gnome-polkit" { } ''
+        ${polkit_gnome}/libexec/polkit-gnome-authentication-agent-1
+      '')
+      polkit_gnome
     ])
     ++ [
       # inputs.ki-editor.packages.${system}.default
-      # nillapkgs.apotris.${pkgs.system}
+      nillapkgs.sonicmania.${pkgs.system}
 
       (pkgs.vscode.fhsWithPackages (
         pkgs: with pkgs; [
@@ -142,11 +163,6 @@
           nixd
         ]
       ))
-
-      (pkgs.writers.writeHaskellBin "missiles" { libraries = [ pkgs.haskellPackages.acme-missiles ]; } ''
-        import Acme.Missiles
-        main = launchMissiles
-      '')
 
       (
         let

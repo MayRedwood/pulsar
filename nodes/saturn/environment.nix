@@ -1,6 +1,6 @@
 {
   # config,
-  # lib,
+  lib,
   pkgs,
   project,
   inputs,
@@ -10,10 +10,10 @@ let
   nilla-cli-package = inputs.nilla-cli.packages.nilla-cli.result.${pkgs.system};
 in
 {
-  imports = [ (import "${inputs.lix-module}/module.nix" { lix = null; }) ];
+  # imports = [ (import "${inputs.lix-module}/module.nix" { lix = null; }) ];
 
   nix = {
-    # package = pkgs.lix;
+    package = pkgs.lixPackageSets.latest.lix;
     settings = {
       experimental-features = [
         "nix-command"
@@ -50,7 +50,7 @@ in
     # nixPath = lib.mkForce [ "nixpkgs=flake:nixpkgs" ];
     # channel.enable = false;
   };
-  nixpkgs.flake.source = project.inputs.nixpkgs.src;
+  nixpkgs.flake.source = lib.mkForce project.inputs.nixpkgs.src;
 
   users.users.moon = {
     isNormalUser = true;
@@ -63,6 +63,7 @@ in
       "transmission"
       "qbittorrent"
       "pipewire"
+      "input"
     ];
     shell = pkgs.bash;
     packages = with pkgs; [
@@ -84,15 +85,43 @@ in
       noto-fonts-emoji
       maple-mono.truetype
       nerd-fonts.space-mono
+      font-awesome
+      adwaita-fonts
     ];
   };
 
   services = {
-    displayManager.sddm = {
+    # playerctld.enable = true;
+    # displayManager.sddm = {
+    #   enable = true;
+    #   wayland.enable = true;
+    # };
+    # desktopManager.plasma6.enable = true;
+    # desktopManager.gnome.enable = true;
+    # displayManager.gdm.enable = true;
+    displayManager.ly = {
       enable = true;
-      wayland.enable = true;
+      x11Support = false;
+      settings = {
+        animation = "colormix";
+        hide_version_string = true;
+        hide_key_hints = true;
+        # full_color = false;
+        # bigclock = "en";
+        # colormix_col1 = "0x00FF0030";
+        # colormix_col2 = "0x000030FF";
+        # colormix_col1 = "0x0005";
+        # colormix_col2 = "0x0006";
+        # colormix_col3 = "0x0001";
+      };
     };
-    desktopManager.plasma6.enable = true;
+
+    gnome = {
+      games.enable = true;
+    #   core-developer-tools.enable = true;
+    };
+
+    gvfs.enable = true;
 
     flatpak.enable = true;
 
@@ -106,11 +135,124 @@ in
   };
 
   programs = {
+    niri.enable = true;
+    
     command-not-found.enable = false;
     nix-index-small = {
       enable = true;
       extraBins = true;
     };
+
+    # dconf.profiles.user.databases = [
+    #   {
+    #     # lockAll = true;
+    #     settings = {
+    #       "org/gnome/shell" = {
+    #         favorite-apps = [
+    #           "vesktop.desktop"
+    #           "app.zen_browser.zen.desktop"
+    #           "com.mitchellh.ghostty.desktop"
+    #           "org.gnome.Decibels.desktop"
+    #           "org.gnome.Nautilus.desktop"
+    #           "org.gnome.Software.desktop"
+    #         ];
+    #         enabled-extensions = [
+    #           "clipboard-indicator@tudmotu.com"
+    #           "lockkeys@vaina.lt"
+    #           "newworkspaceshortcut@barnix.io"
+    #           "user-theme@gnome-shell-extensions.gcampax.github.com"
+    #           "azwallpaper@azwallpaper.gitlab.com"
+    #         ];
+    #       };
+    #       "org/gnome/shell/extensions/clipboard-indicator" = {
+    #         move-item-first = true;
+    #         paste-button = false;
+    #         toggle-menu = [ "<Super>c" ];
+    #       };
+    #       "org/gnome/shell/extensions/lock-keys" = {
+    #         style = "show-hide-capslock";
+    #       };
+    #       "org/gnome/shell/extensions/newworkspaceshortcut" = {
+    #         move-window-to-right-workspace = [ "<Super><Shift>K" ];
+    #         move-window-to-left-workspace = [ "<Super><Shift>J" ];
+    #         empty-workspace-right = [ "<Super>K" ];
+    #         empty-workspace-left = [ "<Super>J" ];
+    #         workspace-right = [ "<Super><Control>K" ];
+    #         workspace-left = [ "<Super><Control>J" ];
+    #         move-workspace-triggers-overview = false;
+    #       };
+    #       "org/gnome/shell/extensions/azwallpaper" = {
+    #         slideshow-directory = "org/gnome/shell/extensions/azwallpaper";
+    #         slideshow-timer-remaining = lib.gvariant.mkUint32 3600;
+    #       };
+    #       "org/gnome/mutter" = {
+    #         workspaces-only-on-primary = false;
+    #       };
+    #       "org/gnome/desktop/search-providers" = {
+    #         sort-order = [
+    #           "org.gnome.Settings.desktop"
+    #           "org.gnome.Calculator.desktop"
+    #           "org.gnome.Characters.desktop"
+    #           "org.gnome.Calendar.desktop"
+    #           "org.gnome.Nautilus.desktop"
+    #           "org.gnome.Boxes.desktop"
+    #           "org.gnome.clocks.desktop"
+    #           "org.gnome.Contacts.desktop"
+    #         ];
+    #       };
+    #       "org/gnome/desktop/peripherals/mouse" = {
+    #         accel-profile = "flat";
+    #       };
+    #       "org/gnome/desktop/peripherals/keyboard" = {
+    #         delay = lib.gvariant.mkUint32 300;
+    #         repeat-interval = lib.gvariant.mkUint32 25;
+    #       };
+    #       "org/gnome/desktop/input-sources" = {
+    #         sources = [
+    #           (lib.gvariant.mkTuple [
+    #             "xkb"
+    #             "br+nodeadkeys"
+    #           ])
+    #           (lib.gvariant.mkTuple [
+    #             "xkb"
+    #             "br"
+    #           ])
+    #         ];
+    #         xkb-options = [
+    #           "terminate:ctrl_alt_bksp"
+    #           "caps:swapescape"
+    #         ];
+    #       };
+    #       "org/gnome/desktop/a11y/keyboard" = {
+    #         togglekeys-enable = true;
+    #       };
+    #       "org/gnome/desktop/calendar" = {
+    #         show-weekdate = true;
+    #       };
+    #       "org/gnome/desktop/interface" = {
+    #         clock-show-seconds = true;
+    #         clock-show-date = false;
+    #         font-hinting = "none";
+    #       };
+    #       "org/gnome/desktop/screen-time-limits" = {
+    #         daily-limit-enabled = true;
+    #       };
+    #       "org/gnome/settings-daemon/plugins/color" = {
+    #         night-light-schedule-automatic = false;
+    #       };
+    #       "org/gnome/settings-daemon/plugins/media-keys" = {
+    #         screensaver = [ "" ];
+    #       };
+    #       "org/gnome/desktop/wm/keybindings" = {
+    #         minimize = [ "" ];
+    #         switch-to-workspace-left = [ "<Super>h" ];
+    #         switch-to-workspace-right = [ "<Super>l" ];
+    #         move-to-workspace-left = [ "<Shift><Super>h" ];
+    #         move-to-workspace-right = [ "<Shift><Super>l" ];
+    #       };
+    #     };
+    #   }
+    # ];
   };
 
   virtualisation.podman.enable = true;
@@ -151,7 +293,7 @@ in
           just
           bash
           nushell
-          colmena
+          lixPackageSets.latest.colmena
           nvd
           npins
           nilla-cli-package
@@ -163,7 +305,7 @@ in
       })
       nilla-cli-package
       npins
-      colmena
+      lixPackageSets.latest.colmena
 
       nvd
       nix-output-monitor
@@ -172,8 +314,8 @@ in
       # nix-inspect
       nix-du
       nix-btm
-      # lixPackageSets.latest.nix-eval-jobs
-      nix-eval-jobs
+      lixPackageSets.latest.nix-eval-jobs
+      # nix-eval-jobs
       just
 
       wget
@@ -184,14 +326,40 @@ in
       chafa
 
       adw-gtk3
+      nautilus
       adwaita-icon-theme
       adwaita-icon-theme-legacy
       adwaita-fonts
+      # gnomeExtensions.clipboard-indicator
+      # gnomeExtensions.lock-keys
+      # gnomeExtensions.new-workspace-shortcut
+      # gnomeExtensions.user-themes
+      # gnomeExtensions.wallpaper-slideshow
+      # gnomeExtensions.undecorate
+      # gnomeExtensions.caffeine
+      xorg.xprop
+      gradia
+
+      swayidle
+      brightnessctl
+      hyprlock
+
+      waybar
+      fuzzel
+      swww
+      mako
+      clipse
+      # playerctl
+      pavucontrol
+      networkmanagerapplet
+      bluetui
+      xwayland-satellite
     ];
   };
 
   # Set sudo-rs as our default sudo provider
   security = {
+    # soteria.enable = true;
     sudo.enable = false;
     sudo-rs = {
       enable = true;
