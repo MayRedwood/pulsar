@@ -72,7 +72,7 @@
   };
 
   imports = [
-    ./neovim.nix
+    # ./neovim.nix
     ./media.nix
     ./glance.nix
   ];
